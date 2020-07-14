@@ -142,13 +142,25 @@
               
                 <h1 id="_1">快速上手</h1>
 <h2 id="_2">硬件连接</h2>
+<p><img alt="hardware" src="../img/hardware.png" /></p>
+<p>硬件连接如图所示:</p>
+<ul>
+<li><code>TELEM 2</code>: 默认作为控制台<strong>Console</strong>的输出，默认波特率<em>57600</em>。如果在<strong>Mavlink Console</strong>中输入任意字符，则<strong>Console</strong>将被自动映射到<strong>Mavlink Console</strong>上。</li>
+<li><code>TELEM 1</code>: 默认作为<strong>Mavlink</strong>的输出口，默认波特率<em>57600</em>。如果<strong>USB</strong>连接的话，则<strong>Mavlink</strong>则自动换到到<strong>USB</strong>设备上输出。</li>
+<li><code>GPS</code>: 连接GPS模块，默认波特率<em>9600</em>。</li>
+<li><code>RC</code>: 连接遥控器的<em>PPM</em>信号,目前最多支持8路PPM信号。</li>
+<li><code>SB</code>: 连接遥控器的<em>SBUS</em>信号，目前还未支持。</li>
+<li><code>MAIN OUT</code>: 支持最多8路PWM输出信号 (也可改为捕获输入信号)。</li>
+<li><code>AUX OUT</code>: 支持最多6路PWM输出信号 (也可改为捕获输入信号)。</li>
+<li><code>其它</code>：其它接口暂时还未支持。</li>
+</ul>
 <h2 id="_3">编译环境</h2>
 <p>支持在Windows/Linux/Mac环境下编译，需要用到的工具链如下：</p>
 <ul>
-<li><strong>编译器</strong>: <em>arm-none-eabi- toolchain</em> (推荐版本: <code>7-2018-q2-update</code>，其它版本未测试)</li>
-<li><strong>编译工具</strong>：<em>Scons</em> (推荐版本：<code>v2.3.6</code>)，同时<em>Scons</em>需要用到<em>python2.7.x</em></li>
+<li><strong>编译器</strong>: <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads"><em>arm-none-eabi- toolchain</em></a> (推荐版本: <code>7-2018-q2-update</code>，其它版本未测试)</li>
+<li><strong>编译工具</strong>：<a href="https://sourceforge.net/projects/scons/files/scons/2.3.6/"><em>Scons</em></a> (推荐版本：<code>v2.3.6</code>)，同时<em>Scons</em>需要用到<em>python2.7.x</em></li>
 <li><strong>编辑器</strong>：推荐<em>VS Code</em>。使用<em>VS Code</em>打开<code>FMT_Firmware/fmt_fmu</code>或者<code>FMT_Firmware/fmt_io</code>目录即可打开项目工程。</li>
-<li><strong>USB驱动</strong>：下载 <a href="https://www.st.com/en/development-tools/stsw-stm32102.html">STM32 USB驱动</a></li>
+<li><strong>USB驱动</strong>：下载 <a href="https://www.st.com/en/development-tools/stsw-stm32102.html">STM32 USB驱动</a> (For windows)</li>
 </ul>
 <h2 id="_4">编译固件</h2>
 <p>在配置好了编译环境后，首先需要配置系统的环境变量。以Windows系统为例，进入<em>Environment Variables</em>界面，添加一个<code>RTT_EXEC_PATH</code>的环境变量，并且将其<em>Value</em>设置为<em>arm-none-eabi- toolchain</em>的下载地址，比如<code>D:\gcc-arm-none-eabi-7-2018-q2-update-win32\bin</code>。</p>
@@ -174,11 +186,11 @@ scons -j4
 <p>目前有两种方式下载FMU固件: 通过uploader.py脚本下载或者通过QGroundControl (QGC)下载。</p>
 <ul>
 <li>
-<p><strong>uploader.py脚本</strong>
+<p><strong>uploader.py脚本：</strong>
 将飞控连接usb线插入PC，然后在<code>fmt_fmu/target/pixhawk</code>目录中执行<code>python uploader.py</code>。脚本将自动找到对应端口并开始下载位于<em>build</em>目录下的<code>fmt_fmu.bin</code>固件。</p>
 </li>
 <li>
-<p><strong>QGC地面站</strong>
+<p><strong>QGC地面站：</strong>
 进入<em>Firmware Setup</em>页面，然后使用usb线连接飞控和PC。这时会弹出选择固件的界面，选择<code>Advanced Settings</code>，然后在下拉框中选择<code>Custom firmware file</code>，然后选择编译的<code>fmt_fmu.bin</code>固件即可开始下载。</p>
 </li>
 </ul>
@@ -188,12 +200,33 @@ scons -j4
 <h3 id="fmt-io">下载FMT IO固件</h3>
 <p>协处理器IO的固件通过FMU的文件系统进行下载。首先需要连接将编译的<code>fmt_io.bin</code>固件放到sd卡上，可以通过读卡器拷贝。而更方便的方式是通过QGC的FTP功能进行文件上传 (<em>Widget-&gt;Onboard Files</em>)。</p>
 <p>文件上传后，进入控制台(console)，输入如下指令:</p>
-<pre><code>uploader [$path/fmt_io.bin]
+<pre><code>uploader $path/fmt_io.bin
 </code></pre>
 
 <p>其中<code>$path</code>为存放<em>fmt_io.bin</em>的路径，如果是放在根目录，则可以省略，直接输入<code>uploader</code>即可。</p>
 <p><strong>注意：</strong>如果是第一次下载IO固件，在输入<code>uploader</code>指令后，需要手动按一下位于<strong>Pixhawk</strong>右侧的IO复位按钮，使得IO进入bootloader程序。</p>
 <h2 id="_6">代码调试</h2>
+<p>FMT提供了丰富的调试手段，常用的比如通过console打印，log日志记录以及jtag连接进行单独调试。</p>
+<h5 id="console">Console打印</h5>
+<p>在FMU中可以调用<code>console_printf()</code>函数进行打印，用法类似<code>printf()</code>。信息将被打印显示在<em>console</em>设备上，支持中断上下文中打印。</p>
+<h5 id="ulog">ULOG日志</h5>
+<p>ULOG为rt-thread提供的文字日志系统，支持不同level等级的日志信息输出，比如<em>Error</em>,<em>Warning</em>,<em>Info</em>,<em>Debug</em>等，对应的函数接口为：</p>
+<pre><code>ulog_e(TAG, ...)    // Error
+ulog_w(TAG, ...)    // Warning
+ulog_i(TAG, ...)    // Info
+ulog_d(TAG, ...)    // Debug
+</code></pre>
+
+<p>FMT支持将ulog日志输出到多个后端，比如<em>console</em>和<em>file system</em>。比如这条代码</p>
+<pre><code>ulog_e(&quot;Test&quot;, &quot;Hello, this is %s&quot;, &quot;FMT&quot;);
+</code></pre>
+
+<p>将在<em>console</em>打印如下信息，并且这条信息将被记录到<code>log/session_x/ulog.txt</code>中</p>
+<pre><code>[1770] E/Test: Hello, this is FMT
+</code></pre>
+
+<h5 id="jtag">JTAG调试</h5>
+<p>TO BE ADD</p>
               
             </div>
           </div>
