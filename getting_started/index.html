@@ -58,19 +58,35 @@
     <a class="current" href="./">快速上手</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#_1">快速上手</a></li>
+    <li class="toctree-l2"><a href="#_1">硬件连接</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_2">编译环境</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_3">编译固件</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_4">固件下载</a></li>
     
         <ul>
         
-            <li><a class="toctree-l3" href="#_2">硬件连接</a></li>
+            <li><a class="toctree-l3" href="#fmt-fmu">下载FMT FMU固件</a></li>
         
-            <li><a class="toctree-l3" href="#_3">编译环境</a></li>
+            <li><a class="toctree-l3" href="#fmt-io">下载FMT IO固件</a></li>
         
-            <li><a class="toctree-l3" href="#_4">编译固件</a></li>
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#_5">代码调试</a></li>
+    
+        <ul>
         
-            <li><a class="toctree-l3" href="#_5">固件下载</a></li>
+            <li><a class="toctree-l3" href="#console">Console打印</a></li>
         
-            <li><a class="toctree-l3" href="#_6">代码调试</a></li>
+            <li><a class="toctree-l3" href="#ulog">ULOG日志</a></li>
+        
+            <li><a class="toctree-l3" href="#jtag">JTAG调试</a></li>
         
         </ul>
     
@@ -140,8 +156,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">快速上手</h1>
-<h2 id="_2">硬件连接</h2>
+                <h1 id="_1">硬件连接</h1>
 <p><img alt="hardware" src="../img/hardware.png" /></p>
 <p>硬件连接如图所示:</p>
 <ul>
@@ -154,7 +169,7 @@
 <li><code>AUX OUT</code>: 支持最多6路PWM输出信号 (也可改为捕获输入信号)。</li>
 <li><code>其它</code>：其它接口暂时还未支持。</li>
 </ul>
-<h2 id="_3">编译环境</h2>
+<h1 id="_2">编译环境</h1>
 <p>支持在Windows/Linux/Mac环境下编译，需要用到的工具链如下：</p>
 <ul>
 <li><strong>编译器</strong>: <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads"><em>arm-none-eabi- toolchain</em></a> (推荐版本: <code>7-2018-q2-update</code>，其它版本未测试)</li>
@@ -162,7 +177,7 @@
 <li><strong>编辑器</strong>：推荐<em>VS Code</em>。使用<em>VS Code</em>打开<code>FMT_Firmware/fmt_fmu</code>或者<code>FMT_Firmware/fmt_io</code>目录即可打开项目工程。</li>
 <li><strong>USB驱动</strong>：下载 <a href="https://www.st.com/en/development-tools/stsw-stm32102.html">STM32 USB驱动</a> (For windows)</li>
 </ul>
-<h2 id="_4">编译固件</h2>
+<h1 id="_3">编译固件</h1>
 <p>在配置好了编译环境后，首先需要配置系统的环境变量。以Windows系统为例，进入<em>Environment Variables</em>界面，添加一个<code>RTT_EXEC_PATH</code>的环境变量，并且将其<em>Value</em>设置为<em>arm-none-eabi- toolchain</em>的下载地址，比如<code>D:\gcc-arm-none-eabi-7-2018-q2-update-win32\bin</code>。</p>
 <p>同时，在命令行窗口中输入<code>scons --version</code>和<code>python --version</code>查看版本是否正常。完成以上步骤后，可以开始编译FMT固件。</p>
 <ul>
@@ -181,8 +196,8 @@ scons -j4
 </code></pre>
 
 <p>编译完成后，固件<code>fmt_io.bin</code>将生成在<em>build</em>目录下。</p>
-<h2 id="_5">固件下载</h2>
-<h3 id="fmt-fmu">下载FMT FMU固件</h3>
+<h1 id="_4">固件下载</h1>
+<h2 id="fmt-fmu">下载FMT FMU固件</h2>
 <p>目前有两种方式下载FMU固件: 通过uploader.py脚本下载或者通过QGroundControl (QGC)下载。</p>
 <ul>
 <li>
@@ -198,7 +213,7 @@ scons -j4
 <p>固件下载成功后，可以使用串口(<strong>TELEM 2, baudrate: 57600</strong>)或者QGC的<strong>Mavlink Console</strong>连接控制台(console)，如下图所示为飞控开机打印的信息：</p>
 <p><img alt="console" src="../img/console.png" /></p>
 <p>除此之外，还可以在VS Code中运行<code>fmt_fmu/target/pixhawk/mavlink_shell.py</code>脚本来连接console。</p>
-<h3 id="fmt-io">下载FMT IO固件</h3>
+<h2 id="fmt-io">下载FMT IO固件</h2>
 <p>协处理器IO的固件通过FMU的文件系统进行下载。首先需要连接将编译的<code>fmt_io.bin</code>固件放到sd卡上，可以通过读卡器拷贝。而更方便的方式是通过QGC的FTP功能进行文件上传 (<em>Widget-&gt;Onboard Files</em>)。</p>
 <p>文件上传后，进入控制台(console)，输入如下指令:</p>
 <pre><code>uploader $path/fmt_io.bin
@@ -206,11 +221,11 @@ scons -j4
 
 <p>其中<code>$path</code>为存放<em>fmt_io.bin</em>的路径，如果是放在根目录，则可以省略，直接输入<code>uploader</code>即可。</p>
 <p><strong>注意：</strong>如果是第一次下载IO固件，在输入<code>uploader</code>指令后，需要手动按一下位于<strong>Pixhawk</strong>右侧的IO复位按钮，使得IO进入bootloader程序。</p>
-<h2 id="_6">代码调试</h2>
+<h1 id="_5">代码调试</h1>
 <p>FMT提供了丰富的调试手段，常用的比如通过console打印，log日志记录以及jtag连接进行单独调试。</p>
-<h5 id="console">Console打印</h5>
+<h2 id="console">Console打印</h2>
 <p>在FMU中可以调用<code>console_printf()</code>函数进行打印，用法类似<code>printf()</code>。信息将被打印显示在<em>console</em>设备上，支持中断上下文中打印。</p>
-<h5 id="ulog">ULOG日志</h5>
+<h2 id="ulog">ULOG日志</h2>
 <p>ULOG为rt-thread提供的文字日志系统，支持不同level等级的日志信息输出，比如<em>Error</em>,<em>Warning</em>,<em>Info</em>,<em>Debug</em>等，对应的函数接口为：</p>
 <pre><code>ulog_e(TAG, ...)    // Error
 ulog_w(TAG, ...)    // Warning
@@ -226,7 +241,7 @@ ulog_d(TAG, ...)    // Debug
 <pre><code>[1770] E/Test: Hello, this is FMT
 </code></pre>
 
-<h5 id="jtag">JTAG调试</h5>
+<h2 id="jtag">JTAG调试</h2>
 <p>TO BE ADD</p>
               
             </div>
