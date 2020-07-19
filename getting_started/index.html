@@ -10,6 +10,7 @@
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>快速上手 - Firmament Autopilot</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
@@ -45,70 +46,186 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="..">概述</a>
-	    </li>
-          
-            <li class="toctree-l1 current">
-		
-    <a class="current" href="./">快速上手</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#_1">快速上手</a></li>
+	<ul class="tocbase current">
     
-        <ul>
-        
-            <li><a class="toctree-l3" href="#_2">硬件连接</a></li>
-        
-            <li><a class="toctree-l3" href="#_3">编译环境</a></li>
-        
-            <li><a class="toctree-l3" href="#_4">编译固件</a></li>
-        
-            <li><a class="toctree-l3" href="#_5">固件下载</a></li>
-        
-            <li><a class="toctree-l3" href="#_6">代码调试</a></li>
-        
-        </ul>
     
+      
 
+
+  <li class="navtree toctree-l1 inactive">
+    <a class="" href="..">概述</a>
+  </li>
+    
+      
+
+
+  
+    
+    <li class="navtree toctree-l1 page current">
+      <a class="current" href="./">
+        快速上手
+      </a>
+    </li>
+    
+      
+
+
+
+  <li class="toctree-l1 current">
+    <ul class="subnav-l1 current">
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#_2">硬件连接</a>
+        </li>
+    
+      
+        <li class="toctree-l2">
+          <a class="toctree-l3" href="#_3">编译环境</a>
+        </li>
+    
+      
+          
+
+  <li class="toctree-l2">
+    <a href="#_4">
+      编译固件
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#fmt-fmu">编译FMT FMU固件</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#fmt-io">编译FMT IO固件</a>
+        </li>
+    
     </ul>
-	    </li>
+  </li>
+
+      
+    
+      
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../hardware/">硬件</a>
-	    </li>
+
+  <li class="toctree-l2">
+    <a href="#_5">
+      固件下载
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#fmt-fmu_1">下载FMT FMU固件</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#fmt-io_1">下载FMT IO固件</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#px4">刷回PX4固件</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+      
           
-            <li class="toctree-l1">
-		
+
+  <li class="toctree-l2">
+    <a href="#_6">
+      代码调试
+      <span class="toctree-expand"></span>
+    </a>
+  </li>
+
+
+
+  <li class="toctree-l2">
+    <ul class="subnav-l2 toc-hidden">
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#console">Console打印</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#ulog">ULOG日志</a>
+        </li>
+    
+      
+        <li class="toctree-l3">
+          <a class="toctree-l4" href="#jtag">JTAG调试</a>
+        </li>
+    
+    </ul>
+  </li>
+
+      
+    
+    </ul>
+  </li>
+
+
+  
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
     <a class="" href="../device/">驱动和设备</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
     <a class="" href="../module/">组件</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
     <a class="" href="../mbd/">模型合入</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
     <a class="" href="../simulation/">仿真</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
+  </li>
+    
+      
+
+
+  <li class="navtree toctree-l1 inactive">
     <a class="" href="../contribute/">贡献</a>
-	    </li>
-          
-        </ul>
+  </li>
+    
+  </ul>
       </div>
       &nbsp;
     </nav>
@@ -132,6 +249,9 @@
     
     <li>快速上手</li>
     <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/FirmamentPilot/doc_src/edit/master/docs/getting_started.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -238,7 +358,7 @@ ulog_d(TAG, ...)    // Debug
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../hardware/" class="btn btn-neutral float-right" title="硬件">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../device/" class="btn btn-neutral float-right" title="驱动和设备">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href=".." class="btn btn-neutral" title="概述"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -266,11 +386,13 @@ ulog_d(TAG, ...)    // Debug
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
+          <a href="https://github.com/FirmamentPilot/doc_src/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
       
         <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../hardware/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../device/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
