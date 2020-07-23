@@ -76,7 +76,7 @@
         
             <li><a class="toctree-l3" href="#umcn">uMCN消息订阅/发布模块</a></li>
         
-            <li><a class="toctree-l3" href="#param">param参数模块</a></li>
+            <li><a class="toctree-l3" href="#param">Param参数模块</a></li>
         
         </ul>
     
@@ -298,7 +298,7 @@ mag:0.275549 -0.023282 -0.160785
 mag:0.274039 -0.025209 -0.159165
 </code></pre>
 
-<h2 id="param">param参数模块</h2>
+<h2 id="param">Param参数模块</h2>
 <p>param参数模块提供了参数的读取，存储和修改功能。参数将以xml文件的形式存储在存储设备，如SD卡上。系统上电会，会读取参数文件，并加载文件中的参数。若参数文件不存在，则使用默认的参数值。参数也会被记录到<code>blog</code>中，供Simulink模型使用。目前参数支持的数据类型包括</p>
 <pre><code class="c">enum param_type_t {
     PARAM_TYPE_INT8 = 0,
