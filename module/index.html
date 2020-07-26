@@ -181,18 +181,16 @@ uint32_t console_write(const char* content, uint32_t len);
 } test_data;
 </code></pre>
 
-<ol>
-<li>定义消息
-在源文件头部（通常为发布该消息的源文件）添加如下定义：</li>
-</ol>
+<ul>
+<li>定义消息：在源文件头部（通常为发布该消息的源文件）添加如下定义：</li>
+</ul>
 <pre><code class="c">MCN_DEFINE(my_mcn_topic, sizeof(test_data));
 </code></pre>
 
 <p>这里<code>my_mcn_topic</code>为该消息的名字，<code>sizeof(test_data)</code>为消息内容的长度。uMCN对消息的长度和类型没有限制，所以理论上可以用uMCN传递任意消息类型。但是注意，同一个消息(名称)不可被重复定义，不然编译时会报重复定义的错误。</p>
-<ol>
-<li>注册消息
-调用<code>mcn_advertise</code>函数注册该条消息：</li>
-</ol>
+<ul>
+<li>注册消息：调用<code>mcn_advertise</code>函数注册该条消息：</li>
+</ul>
 <pre><code class="c">mcn_advertise(MCN_ID(my_mcn_topic), _my_mcn_topic_echo);
 </code></pre>
 
@@ -209,19 +207,19 @@ uint32_t console_write(const char* content, uint32_t len);
 </code></pre>
 
 <h3 id="_5">订阅消息</h3>
-<p>订阅者要获取消息的数据，首先需要先订阅消息，通过<code>mcn_subscribe</code>函数实现消息的订阅。uMCN支持同步/异步消息订阅，同步方式需要在订阅消息的时候传入一个消息句柄<code>event_t</code>用于线程同步。订阅消息遵循以下几个步骤：
-1. 声明消息
-如果是在非定义该条消息的源文件中，则需要先申明该条消息。比如对于我们刚刚建立的<code>my_mcn_topic</code>，需要在订阅消息的源文件头部添加</p>
+<p>订阅者要获取消息的数据，首先需要先订阅消息，通过<code>mcn_subscribe</code>函数实现消息的订阅。uMCN支持同步/异步消息订阅，同步方式需要在订阅消息的时候传入一个消息句柄<code>event_t</code>用于线程同步。订阅消息遵循以下几个步骤：</p>
+<ul>
+<li>声明消息：如果是在非定义该条消息的源文件中，则需要先申明该条消息。比如对于我们刚刚建立的<code>my_mcn_topic</code>，需要在订阅消息的源文件头部添加</li>
+</ul>
 <pre><code class="c">MCN_DECLARE(my_mcn_topic);
 </code></pre>
 
-<ol>
-<li>订阅消息
-调用<code>mcn_subscribe(McnHub* hub, MCN_EVENT_HANDLE event_t, void (*cb)(void* parameter))</code>函数来订阅消息。
+<ul>
+<li>订阅消息：调用<code>mcn_subscribe(McnHub* hub, MCN_EVENT_HANDLE event_t, void (*cb)(void* parameter))</code>函数来订阅消息。
 其中<code>cb</code>为消息发布的回调函数，在每次发布消息时，回调函数将被调用。 <strong>注意：</strong>回调函数将在发布消息的线程中被调用。<code>event_t</code>为用于消息同步的事件句柄，这里一般用系统的信号量(semaphore)实现。当订阅成功后，函数将返回消息节点句柄<code>McnNode_t</code>。</li>
-</ol>
-<p>这里分别对同步/异步的消息订阅举例：
-<strong>同步订阅</strong></p>
+</ul>
+<p>这里分别对同步/异步的消息订阅举例：</p>
+<p><strong>同步订阅</strong></p>
 <pre><code class="c">rt_sem_t event = rt_sem_create(&quot;my_event&quot;, 0, RT_IPC_FLAG_FIFO);
 McnNode_t my_nod = mcn_subscribe(MCN_ID(my_mcn_topic), event, NULL);
 </code></pre>
@@ -235,7 +233,7 @@ McnNode_t my_nod = mcn_subscribe(MCN_ID(my_mcn_topic), event, NULL);
 <pre><code class="c">mcn_publish(MCN_ID(my_mcn_topic), &amp;my_data);
 </code></pre>
 
-<p>这里<code>my_data</code>为要发布的数据，其类型为<code>test_data</code>。注意这里发布消息的类型需跟<strong>MCN_DEFINE()</strong>定义的消息数据类型一致，否则将发生非预期的后果。</p>
+<p>这里<code>my_data</code>为要发布的数据，其类型为<code>test_data</code>。注意这里发布消息的类型需跟<code>MCN_DEFINE()</code>定义的消息数据类型一致，否则将发生非预期的后果。</p>
 <h3 id="_7">读取消息</h3>
 <p>对于同步/异步的消息订阅方式，读取消息时也分为同步和异步方式。</p>
 <p>对于同步订阅方式，调用<code>mcn_poll_sync</code>函数查询是否收到新的数据。如果没有新的数据，则将当前线程挂起，直到收到数据或者等待超时返回。当有新的数据到来后，调用<code>mcn_copy</code>函数读取数据。例如：</p>
@@ -282,7 +280,7 @@ control_output      2      250.0    false
 pilot_cmd           1       0.0     true
 </code></pre>
 
-<p>其中<strong>Topic</strong>为消息名称，<strong>#SUB</strong>为消息订阅者数量，<strong>Freq</strong>为消息发布频率，<strong>Echo</strong>表示该条消息是否提供了打印函数。</p>
+<p>其中Topic为消息名称，#SUB为消息订阅者数量，Freq为消息发布频率，Echo表示该条消息是否提供了打印函数。</p>
 <p>对于提供了打印函数的消息，可以输入<code>mcn echo [topic_name]</code>来打印消息。比如输入<code>mcn echo sensor_imu</code>将打印IMU的数据，按任意键结束。</p>
 <pre><code class="shell">msh /&gt;mcn echo sensor_imu
 gyr:-0.000870 -0.002555 -0.003110 acc:0.011333 0.083641 -9.862786
@@ -312,35 +310,37 @@ gyr:-0.001078 0.002592 -0.003151 acc:-0.040336 0.019121 -9.748902
 
 <h3 id="_8">定义参数</h3>
 <p>在定义参数之前，有必要先了解一下FMT中参数的组织方式。FMT的参数以组(Group)为单位对参数进行组织，每个组可以包含一到任意多个参数。</p>
-<p>举例说明，定义一个新的<em>float</em>类型的参数<code>my_param1</code>和<em>uint32</em>类型的参数<code>my_param2</code>，它们都属于同一个组<code>my_group</code>可以按照如下步骤：
-1. 申明Group: 在<code>param.h</code>中申明新的组<code>my_group</code></p>
+<p>举例说明，定义一个新的<em>float</em>类型的参数<code>my_param1</code>和<em>uint32</em>类型的参数<code>my_param2</code>，它们都属于同一个组<code>my_group</code>可以按照如下步骤：</p>
+<ul>
+<li>申明Group： 在<code>param.h</code>中申明新的组<code>my_group</code></li>
+</ul>
 <pre><code class="c">typedef struct {
     ......
     param_group_t   PARAM_GROUP(my_group);
 } param_list_t;
 </code></pre>
 
-<ol>
-<li>定义Group: 在<code>param.c</code>中定义新的Group</li>
-</ol>
+<ul>
+<li>定义Group：在<code>param.c</code>中定义新的Group</li>
+</ul>
 <pre><code class="c">param_list_t param_list = { 
     ......
     PARAM_DEFINE_GROUP(my_group),
 };
 </code></pre>
 
-<ol>
-<li>申明Parameter: 在<code>param.h</code>中添加新的参数申明</li>
-</ol>
+<ul>
+<li>申明Parameter：在<code>param.h</code>中添加新的参数申明</li>
+</ul>
 <pre><code class="c">typedef struct {
     PARAM_DECLARE(my_param1);
     PARAM_DECLARE(my_param2);
 } PARAM_GROUP(my_group);
 </code></pre>
 
-<ol>
+<ul>
 <li>定义Parameter：在<code>param.c</code>中定义新的参数</li>
-</ol>
+</ul>
 <pre><code class="c">PARAM_GROUP(my_group) PARAM_DECLARE_GROUP(my_group) = \
 {
     PARAM_DEFINE_FLOAT(my_param1, 0.5),
@@ -408,7 +408,7 @@ Option:
 </code></pre>
 
 <ul>
-<li><strong>param list</strong>: 显示所有的组和参数:</li>
+<li><em>param list</em>: 显示所有的组和参数:</li>
 </ul>
 <pre><code class="shell">msh /&gt;param list
 SYSTEM:
@@ -427,7 +427,7 @@ SYSTEM:
 </code></pre>
 
 <ul>
-<li><strong>param group</strong>: 显示所有的组:</li>
+<li><em>param group</em>: 显示所有的组:</li>
 </ul>
 <pre><code class="shell">msh /&gt;param group
   Parameter Groups
@@ -437,7 +437,7 @@ CALIB
 </code></pre>
 
 <ul>
-<li><strong>param set</strong>: 设置参数的值，其用法如下 (方括号表示可选项,尖括号为必填项):</li>
+<li><em>param set</em>: 设置参数的值，其用法如下 (方括号表示可选项,尖括号为必填项):</li>
 </ul>
 <pre><code class="shell">param set [group] &lt;parameter&gt; &lt;value&gt;
 </code></pre>
@@ -448,14 +448,14 @@ CALIB
 
 <p>上述指令也可以简写为<code>param set BLOG_MODE 2</code>。但是请注意，由于这里没有指定组名，如果系统中存在两个相同名字的参数,则会默认写入第一个找到的参数.</p>
 <ul>
-<li><strong>param get</strong>: 获取参数的值, 用法如下：</li>
+<li><em>param get</em>: 获取参数的值, 用法如下：</li>
 </ul>
 <pre><code class="shell">param get [group] &lt;parameter&gt;
 </code></pre>
 
 <ul>
-<li><strong>param save</strong>: 存储当前参数。可以输入<code>param save $path</code>的方式来指定存储路径，否则将存储到默认路径。</li>
-<li><strong>param load</strong>: 加载参数文件。可以输入<code>param load $path</code>的方式来指定加载文件，否则将从默认路径进行加载。</li>
+<li><em>param save</em>: 存储当前参数。可以输入<code>param save $path</code>的方式来指定存储路径，否则将存储到默认路径。</li>
+<li><em>param load</em>: 加载参数文件。可以输入<code>param load $path</code>的方式来指定加载文件，否则将从默认路径进行加载。</li>
 </ul>
 <h2 id="log">Log日志模块</h2>
 <p>日志功能对于MBD的开发模式而言十分重要。因为MBD一个非常重要的仿真手段时开环仿真 (Open Loop Simulation)，其高度依赖于日志记录的模型输入/输出数据，从而得到和在硬件上运行完全一致的仿真数据。开环仿真要求记录的日志数据需要同时兼顾高吞吐量，低延时和高实时性的要求。</p>
