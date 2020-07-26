@@ -293,7 +293,7 @@ gyr:-0.001078 0.002592 -0.003151 acc:-0.040336 0.019121 -9.748902
 
 <p><code>mcn echo</code>指令支持<code>-c</code>和<code>-p</code>的Option来设置消息打印的<strong>条数</strong>和<strong>频率</strong>，默认打印频率500ms。 如果要打印10条消息，打印频率为100ms，可以输入<code>mcn echo -c=10 -p=100 sensor_mag</code>。</p>
 <h2 id="param">Param参数模块</h2>
-<p>param模块为系统提供参数功能，包括参数的定义，读取，存储和修改等。参数信息文件形式存储在存储设备上，如SD卡。存储路径默认为<code>/sys/param.xml</code>或者<code>/sys/hil_param.xml</code>(开启了HIL模式)。
+<p>param模块为系统提供参数功能，包括参数的定义，读取，存储和修改等。参数以文件形式存储在存储设备上，如SD卡。存储路径默认为<code>/sys/param.xml</code>或者<code>/sys/hil_param.xml</code> (HIL模式)。
 系统上电会自动读取默认路径下的参数文件。若参数文件不存在，则使用默认的参数值。如果开启了<code>blog</code>日志记录，参数也会被记录到日志中，供仿真模型读取。目前支持的参数类型包括</p>
 <pre><code class="c">enum param_type_t {
     PARAM_TYPE_INT8 = 0,
@@ -310,7 +310,7 @@ gyr:-0.001078 0.002592 -0.003151 acc:-0.040336 0.019121 -9.748902
 
 <h3 id="_8">定义参数</h3>
 <p>在定义参数之前，有必要先了解一下FMT中参数的组织方式。FMT的参数以组(Group)为单位对参数进行组织，每个组可以包含一到任意多个参数。</p>
-<p>举例说明，定义一个新的<em>float</em>类型的参数<code>my_param1</code>和<em>uint32</em>类型的参数<code>my_param2</code>，它们都属于同一个组<code>my_group</code>可以按照如下步骤：</p>
+<p>举例说明，定义一个新的<em>float</em>类型的参数<code>my_param1</code>和<em>uint32</em>类型的参数<code>my_param2</code>，它们都属于同一个组<code>my_group</code>，则可以按照如下步骤定义：</p>
 <ul>
 <li>申明Group： 在<code>param.h</code>中申明新的组<code>my_group</code></li>
 </ul>
@@ -348,9 +348,9 @@ gyr:-0.001078 0.002592 -0.003151 acc:-0.040336 0.019121 -9.748902
 };
 </code></pre>
 
-<p>这里定义了两个新的参数<code>my_param1</code>（默认值0.5）和<code>my_param2</code>（默认值1）。如果是在已有Group中添加新的参数，那么则可以省去步骤1和步骤2.</p>
+<p>这里定义了两个新的参数<code>my_param1</code>（默认值0.5）和<code>my_param2</code>（默认值1）。<strong>如果是在已有Group中添加新的参数，那么则可以省去步骤1和步骤2</strong>.</p>
 <h3 id="_9">读取参数</h3>
-<p>param模块提供了如下宏定义来快速获取参数的值 (非查询模式)。用户需要选择匹配参数类型的宏并传入参数的组名称和参数名称. </p>
+<p>Param模块提供了如下宏定义来快速获取参数的值 (非查询模式)。用户需要选择匹配参数类型的宏并传入参数的组名称和参数名称. </p>
 <pre><code class="c">#define PARAM_GET_INT8(_group, _name)
 #define PARAM_GET_UINT8(_group, _name)
 #define PARAM_GET_INT16(_group, _name)
