@@ -187,7 +187,7 @@ uint32_t console_write(const char* content, uint32_t len);
 <pre><code class="c">MCN_DEFINE(my_mcn_topic, sizeof(test_data));
 </code></pre>
 
-<p>这里<code>my_mcn_topic</code>为该消息的名字，<code>sizeof(test_data)</code>为消息内容的长度。uMCN对消息的长度和类型没有限制，所以理论上可以用uMCN传递任意消息类型。但是注意，同一个消息(名称)不可被重复定义，不然编译时会报重复定义的错误。</p>
+<p>这里<code>my_mcn_topic</code>为该消息的名字，<code>sizeof(test_data)</code>为消息内容的长度。uMCN对消息的长度和类型没有限制，所以理论上可以用uMCN传递任意消息类型。同时uMCN支持一个消息同时有多个发布者 (publisher) 和订阅者 (subscriber)。但是注意，同一个消息(名称)不可被重复定义，不然编译时会报重复定义的错误。</p>
 <ul>
 <li>注册消息：调用<code>mcn_advertise</code>函数注册该条消息：</li>
 </ul>
@@ -216,7 +216,7 @@ uint32_t console_write(const char* content, uint32_t len);
 
 <ul>
 <li>订阅消息：调用<code>mcn_subscribe(McnHub* hub, MCN_EVENT_HANDLE event_t, void (*cb)(void* parameter))</code>函数来订阅消息。
-其中<code>cb</code>为消息发布的回调函数，在每次发布消息时，回调函数将被调用。 <strong>注意：</strong>回调函数将在发布消息的线程中被调用。<code>event_t</code>为用于消息同步的事件句柄，这里一般用系统的信号量(semaphore)实现。当订阅成功后，函数将返回消息节点句柄<code>McnNode_t</code>。</li>
+其中<code>cb</code>为消息发布的回调函数，在每次发布消息时，回调函数将被调用 (注意: 回调函数将在发布消息的线程中被调用)。<code>event_t</code>为用于消息同步的事件句柄，这里一般用系统的信号量(semaphore)实现。当订阅成功后，函数将返回消息节点句柄<code>McnNode_t</code>。</li>
 </ul>
 <p>这里分别对同步/异步的消息订阅举例：</p>
 <p><strong>同步订阅</strong></p>
