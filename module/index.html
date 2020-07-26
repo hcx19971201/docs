@@ -464,10 +464,9 @@ CALIB
 <p>首先有必要了解一下BLog记录日志的结构。BLog记录的日志以<strong>Bus</strong> (类似Simulink中Bus的概念)为单位，其中每个Bus又包含一个或者多个<strong>Element</strong>(类似Simulink中Element的概念)。所以BLog日志文件可以直接解析为Simulink可以使用的Bus数据，供模型进行仿真。下面同样举例说明BLog日志的用法。</p>
 <h4 id="_12">添加日志数据</h4>
 <p>这里以<code>IMU</code>日志数据为例, 演示如何添加新的日志数据.</p>
-<ol>
-<li>定义Element
-使用宏<code>BLOG_ELEMENT(_name, _type)</code>来定义一个Element，其中<code>_name</code>为Element名称，<code>_type</code>为Element类型，目前支持的类型如下：</li>
-</ol>
+<ul>
+<li>定义Element：使用宏<code>BLOG_ELEMENT(_name, _type)</code>来定义一个Element，其中<code>_name</code>为Element名称，<code>_type</code>为Element类型，目前支持的类型如下：</li>
+</ul>
 <pre><code class="c">enum {
     BLOG_INT8 = 0,
     BLOG_UINT8,
@@ -501,10 +500,9 @@ CALIB
 };
 </code></pre>
 
-<ol>
-<li>定义Bus:
-使用宏<code>BLOG_BUS(_name, _id, _elem_list)</code>将新的Bus添加到<code>_blog_bus</code>列表中。其中<code>_name</code>为Bus名称；<code>_id</code>为该条Bus的ID，用来唯一指代这条Bus数据；IMU_elems为Bus的Element数据。比如：</li>
-</ol>
+<ul>
+<li>定义Bus：使用宏<code>BLOG_BUS(_name, _id, _elem_list)</code>将新的Bus添加到<code>_blog_bus</code>列表中。其中<code>_name</code>为Bus名称；<code>_id</code>为该条Bus的ID，用来唯一指代这条Bus数据；IMU_elems为Bus的Element数据。比如：</li>
+</ul>
 <pre><code class="c">blog_bus_t _blog_bus[] = {
     BLOG_BUS(&quot;IMU&quot;, BLOG_IMU_ID, IMU_elems),
     ......
