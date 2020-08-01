@@ -196,11 +196,16 @@ scons -j4
 <h3 id="fmt-io_1">下载FMT IO固件</h3>
 <p>协处理器IO的固件通过FMU的文件系统进行下载。首先需要连接将编译的<code>fmt_io.bin</code>固件放到sd卡上，可以通过读卡器拷贝。而更方便的方式是通过QGC的FTP功能进行文件上传 (<em>Widget-&gt;Onboard Files</em>)。</p>
 <p>文件上传后，进入控制台(console)，输入如下指令:</p>
-<pre><code>uploader $path/fmt_io.bin
+<pre><code>fmtio upload $path/fmt_io.bin
 </code></pre>
 
 <p>其中<code>$path</code>为存放<em>fmt_io.bin</em>的路径，如果是放在根目录，则可以省略，直接输入<code>uploader</code>即可。</p>
-<p><strong>注意：</strong>如果是第一次下载IO固件，在输入<code>uploader</code>指令后，需要手动按一下位于<strong>Pixhawk</strong>右侧的IO复位按钮，使得IO进入bootloader程序。</p>
+<p><strong>注意：</strong>如果是第一次下载IO固件，在输入<code>upload</code>指令后，需要手动按一下位于<strong>Pixhawk</strong>右侧的IO复位按钮，使得IO进入bootloader程序。</p>
+<p>下载完成后，在控制台输入<code>fmtio hello</code>指令，如果IO固件更新成功，应该看到IO发来的如下消息：</p>
+<pre><code class="shell">msh /&gt;fmtio hello
+msh /&gt;[IO]:Hello, this is FMT IO!
+</code></pre>
+
 <h3 id="px4">刷回PX4固件</h3>
 <p>首先同样利用<strong>QGC</strong>地面站下载PX4/APM的固件到FMU。 PX4在上电会检查IO的固件版本并进行更新。但是由于目前FMT IO还不识别PX4的重启指令，故无法重启进入bootloader模式，所以需要手动进行IO固件的下载，目前有两种方法：</p>
 <ol>
