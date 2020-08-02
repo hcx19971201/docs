@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>模型接口定义 - Firmament Autopilot</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u6a21\u578b\u63a5\u53e3\u5b9a\u4e49";
+    var mkdocs_page_input_path = "interface.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Firmament Autopilot</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">概述</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../getting_started/">快速上手</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../device/">设备和驱动</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../module/">组件</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../mbd/">基于模型设计</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">模型接口定义</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#plant">Plant 模型接口</a></li>
+    
+
+    <li class="toctree-l2"><a href="#ins">INS 模型接口</a></li>
+    
+
+    <li class="toctree-l2"><a href="#fms">FMS 模型接口</a></li>
+    
+
+    <li class="toctree-l2"><a href="#controller">Controller 模型接口</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_1">模型总线定义</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../simulation/">仿真</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../contribute/">贡献</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Firmament Autopilot</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>模型接口定义</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/FirmamentPilot/doc_src/edit/master/docs/interface.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="plant">Plant 模型接口</h2>
+<p><strong>INPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th align="left">Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control_Out</td>
+<td>1</td>
+<td align="left"><a href="#Control_Out_Bus">Control_Out_Bus</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>OUTPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plant_States</td>
+<td>1</td>
+<td>Plant_States_Bus</td>
+</tr>
+<tr>
+<td>Extended_States</td>
+<td>2</td>
+<td>Extended_States_Bus</td>
+</tr>
+<tr>
+<td>IMU</td>
+<td>3</td>
+<td><a href="#IMU_Bus">IMU_Bus</a></td>
+</tr>
+<tr>
+<td>MAG</td>
+<td>4</td>
+<td><a href="#MAG_Bus">MAG_Bus</a></td>
+</tr>
+<tr>
+<td>Barometer</td>
+<td>5</td>
+<td><a href="#Barometer_Bus">Barometer_Bus</a></td>
+</tr>
+<tr>
+<td>GPS_uBlox</td>
+<td>6</td>
+<td><a href="#GPS_uBlox_Bus">GPS_uBlox_Bus</a></td>
+</tr>
+<tr>
+<td>Sonar</td>
+<td>7</td>
+<td>Sonar_Bus</td>
+</tr>
+<tr>
+<td>Optical_Flow</td>
+<td>8</td>
+<td>Opticaal_Flow_Bus</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ins">INS 模型接口</h2>
+<p><strong>INPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IMU1</td>
+<td>1</td>
+<td><a href="#IMU_Bus">IMU_Bus</a></td>
+</tr>
+<tr>
+<td>IMU2</td>
+<td>2</td>
+<td><a href="#IMU_Bus">IMU_Bus</a></td>
+</tr>
+<tr>
+<td>MAG</td>
+<td>3</td>
+<td><a href="#MAG_Bus">MAG_Bus</a></td>
+</tr>
+<tr>
+<td>Barometer</td>
+<td>4</td>
+<td><a href="#Barometer_Bus">Barometer_Bus</a></td>
+</tr>
+<tr>
+<td>GPS_uBlox</td>
+<td>5</td>
+<td><a href="#GPS_uBlox_Bus">GPS_uBlox_Bus</a></td>
+</tr>
+<tr>
+<td>Sonar</td>
+<td>6</td>
+<td>Sonar_Bus</td>
+</tr>
+<tr>
+<td>Optical_Flow</td>
+<td>7</td>
+<td>Optical_Flow_Bus</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OUTPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INS_Out</td>
+<td>1</td>
+<td><a href="#INS_Out_Bus">INS_Out_Bus</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="fms">FMS 模型接口</h2>
+<p><strong>INPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pilot_Cmd</td>
+<td>1</td>
+<td><a href="#Pilot_Cmd_Bus">Pilot_Cmd_Bus</a></td>
+</tr>
+<tr>
+<td>INS_Out</td>
+<td>2</td>
+<td><a href="#INS_Out_Bus">INS_Out_Bus</a></td>
+</tr>
+<tr>
+<td>Control_Out</td>
+<td>3</td>
+<td><a href="#Control_Out_Bus">Control_Out_Bus</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>OUTPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FMS_Out</td>
+<td>1</td>
+<td><a href="#FMS_Out_Bus">FMS_Out_Bus</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="controller">Controller 模型接口</h2>
+<p><strong>INPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FMS_Out</td>
+<td>1</td>
+<td><a href="#FMS_Out_Bus">FMS_Out_Bus</a></td>
+</tr>
+<tr>
+<td>INS_Out</td>
+<td>2</td>
+<td><a href="#INS_Out_Bus">INS_Out_Bus</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>OUTPUT</strong></p>
+<table>
+<thead>
+<tr>
+<th>Port Name</th>
+<th>Port ID</th>
+<th>Bus Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control_Out</td>
+<td>1</td>
+<td><a href="#Control_Out_Bus">Control_Out_Bus</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_1">模型总线定义</h2>
+<p><strong><span id="IMU_Bus">IMU_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>IMU timestamp in ms</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gyr_x</td>
+<td>rad/s</td>
+<td>gyroscope x value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gyr_y</td>
+<td>rad/s</td>
+<td>gyroscope y value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gyr_z</td>
+<td>rad/s</td>
+<td>gyroscope z value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>acc_x</td>
+<td>m/s2</td>
+<td>accelerometer x value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>acc_y</td>
+<td>m/s2</td>
+<td>accelerometer y value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>acc_z</td>
+<td>m/s2</td>
+<td>accelerometer z value</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="MAG_Bus">MAG_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>MAG timestamp in ms</td>
+</tr>
+<tr>
+<td>float</td>
+<td>mag_x</td>
+<td>gauss</td>
+<td>magnetometer x value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>mag_y</td>
+<td>gauss</td>
+<td>magnetometer y value</td>
+</tr>
+<tr>
+<td>float</td>
+<td>mag_z</td>
+<td>gauss</td>
+<td>magnetometer z value</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="Barometer_Bus">Barometer_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>barometer timestamp in ms</td>
+</tr>
+<tr>
+<td>float</td>
+<td>pressure</td>
+<td>Pa</td>
+<td>air pressure in Pa</td>
+</tr>
+<tr>
+<td>float</td>
+<td>temperature</td>
+<td>degree</td>
+<td>temperature in degree</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="GPS_uBlox_Bus">GPS_uBlox_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>GPS timestamp in ms</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>iTOW</td>
+<td>ms</td>
+<td>GPS time of week</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>year</td>
+<td>year</td>
+<td>Year(UTC)</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>month</td>
+<td>month</td>
+<td>Month</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>day</td>
+<td>day</td>
+<td>Day of month</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>hour</td>
+<td>hour</td>
+<td>Hour of day</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>min</td>
+<td>minute</td>
+<td>Minute of hour</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>sec</td>
+<td>second</td>
+<td>Seconds of minute</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>valid</td>
+<td>-</td>
+<td>Valid flags</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>tAcc</td>
+<td>ns</td>
+<td>TIme accurancy estimate</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>nano</td>
+<td>ns</td>
+<td>Fraction of second</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>fixType</td>
+<td>-</td>
+<td>GNSSfox Type</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>flags</td>
+<td>-</td>
+<td>Fix status flags</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>reserved1</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>numSV</td>
+<td>-</td>
+<td>Number of available satelites</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>lon</td>
+<td>1e7 deg</td>
+<td>Lontitude</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>lat</td>
+<td>1e7 deg</td>
+<td>Latitude</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>height</td>
+<td>mm</td>
+<td>Height above Elipsoid</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>hMSL</td>
+<td>mm</td>
+<td>Height above mean sea level</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>hAcc</td>
+<td>mm</td>
+<td>Horizontal accurancy</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>vAcc</td>
+<td>mm</td>
+<td>Vertical accurancy</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>velN</td>
+<td>mm/s</td>
+<td>NED north velocity</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>velE</td>
+<td>mm/s</td>
+<td>NED east velocity</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>velD</td>
+<td>mm/s</td>
+<td>NED down velocity</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>gSpeed</td>
+<td>mm/s</td>
+<td>Ground speed</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>headMot</td>
+<td>1e5 deg</td>
+<td>Heading of motion</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>sAcc</td>
+<td>mm/s</td>
+<td>Speed accurancy</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>headAcc</td>
+<td>1e5 deg</td>
+<td>Heading accurancy</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>pDOP</td>
+<td>1e2 deg</td>
+<td>Position DOP</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>reserved2</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="INS_Out_Bus">INS_Out_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>timestamp of INS output</td>
+</tr>
+<tr>
+<td>single</td>
+<td>phi</td>
+<td>rad</td>
+<td>roll angle</td>
+</tr>
+<tr>
+<td>single</td>
+<td>theta</td>
+<td>rad</td>
+<td>pitch angle</td>
+</tr>
+<tr>
+<td>single</td>
+<td>psi</td>
+<td>rad</td>
+<td>yaw angle</td>
+</tr>
+<tr>
+<td>single[4]</td>
+<td>quat</td>
+<td>-</td>
+<td>attitude quaternion</td>
+</tr>
+<tr>
+<td>single</td>
+<td>p</td>
+<td>rad/s</td>
+<td>roll rate</td>
+</tr>
+<tr>
+<td>single</td>
+<td>q</td>
+<td>rad/s</td>
+<td>pitch rate</td>
+</tr>
+<tr>
+<td>single</td>
+<td>r</td>
+<td>rad/s</td>
+<td>yaw rate</td>
+</tr>
+<tr>
+<td>single</td>
+<td>ax</td>
+<td>m/s^2</td>
+<td>specific force in x</td>
+</tr>
+<tr>
+<td>single</td>
+<td>ay</td>
+<td>m/s^2</td>
+<td>specific force in y</td>
+</tr>
+<tr>
+<td>single</td>
+<td>az</td>
+<td>m/s^2</td>
+<td>specific force in z</td>
+</tr>
+<tr>
+<td>single</td>
+<td>vn</td>
+<td>m/s</td>
+<td>WGS84 north velocity</td>
+</tr>
+<tr>
+<td>single</td>
+<td>ve</td>
+<td>m/s</td>
+<td>WGS84 east velocity</td>
+</tr>
+<tr>
+<td>single</td>
+<td>vd</td>
+<td>m/s</td>
+<td>WGS84 down velocity</td>
+</tr>
+<tr>
+<td>double</td>
+<td>lon</td>
+<td>deg</td>
+<td>WGS84 longitude</td>
+</tr>
+<tr>
+<td>double</td>
+<td>lat</td>
+<td>deg</td>
+<td>WGS84 latitude</td>
+</tr>
+<tr>
+<td>double</td>
+<td>alt</td>
+<td>m</td>
+<td>WGS84 altitude</td>
+</tr>
+<tr>
+<td>single</td>
+<td>x_R</td>
+<td>m</td>
+<td>Relative position of x</td>
+</tr>
+<tr>
+<td>single</td>
+<td>y_R</td>
+<td>m</td>
+<td>Relative position of y</td>
+</tr>
+<tr>
+<td>single</td>
+<td>h_R</td>
+<td>m</td>
+<td>Relative position of height</td>
+</tr>
+<tr>
+<td>single</td>
+<td>h_AGL</td>
+<td>m</td>
+<td>Height above ground level</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td><a href="#flag">flag</a></td>
+<td>-</td>
+<td>INS sensor health</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td><a href="#status">status</a></td>
+<td>-</td>
+<td>INS status</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="flag">flag</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>INS ready</td>
+</tr>
+<tr>
+<td>1</td>
+<td>standstill</td>
+</tr>
+<tr>
+<td>2</td>
+<td>attitude valid</td>
+</tr>
+<tr>
+<td>3</td>
+<td>heading valid</td>
+</tr>
+<tr>
+<td>4</td>
+<td>velocity valid</td>
+</tr>
+<tr>
+<td>5</td>
+<td>WGS84 position valid</td>
+</tr>
+<tr>
+<td>6</td>
+<td>relative position x,y valid</td>
+</tr>
+<tr>
+<td>7</td>
+<td>relative height valid</td>
+</tr>
+<tr>
+<td>8</td>
+<td>height above ground level valid</td>
+</tr>
+<tr>
+<td>9-31</td>
+<td>reserved</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="status">status</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>IMU1 available</td>
+</tr>
+<tr>
+<td>1</td>
+<td>IMU2 available</td>
+</tr>
+<tr>
+<td>2</td>
+<td>magnetometer available</td>
+</tr>
+<tr>
+<td>3</td>
+<td>barometer available</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GPS available</td>
+</tr>
+<tr>
+<td>5</td>
+<td>sonar available</td>
+</tr>
+<tr>
+<td>6</td>
+<td>optical flow available</td>
+</tr>
+<tr>
+<td>7-31</td>
+<td>reserved</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong><span id="Pilot_Cmd_Bus">Pilot_Cmd_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>RC timestamp</td>
+</tr>
+<tr>
+<td>single</td>
+<td>ls_lr</td>
+<td>[-1 1]</td>
+<td>left stick value of left/right</td>
+</tr>
+<tr>
+<td>single</td>
+<td>ls_ud</td>
+<td>[-1 1]</td>
+<td>left stick value of up/down</td>
+</tr>
+<tr>
+<td>single</td>
+<td>rs_lr</td>
+<td>[-1 1]</td>
+<td>right stick value of left/right</td>
+</tr>
+<tr>
+<td>single</td>
+<td>rs_ud</td>
+<td>[-1 1]</td>
+<td>right stick value of up/down</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>mode</td>
+<td>-</td>
+<td>Control Mode:<br>1: Mission Mode<br>2: Position Mode<br>3: Altitude Hold Mode<br>4: Manual Mode<br>5: Acro Mode</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>cmd_1</td>
+<td>-</td>
+<td>command signal 1</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>cmd_2</td>
+<td>-</td>
+<td>command signal 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span id="FMS_Out_Bus">FMS_Out_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>timestamp of FMS output</td>
+</tr>
+<tr>
+<td>single</td>
+<td>p_cmd</td>
+<td>rad/s</td>
+<td>roll rate command, <br />valid if mode=5</td>
+</tr>
+<tr>
+<td>single</td>
+<td>q_cmd</td>
+<td>rad/s</td>
+<td>pitch rate command, <br />valid if mode=5</td>
+</tr>
+<tr>
+<td>single</td>
+<td>r_cmd</td>
+<td>rad/s</td>
+<td>yaw rate command, <br />valid if mode=5</td>
+</tr>
+<tr>
+<td>single</td>
+<td>phi_cmd</td>
+<td>rad</td>
+<td>roll command, <br />valid if mode=[3 4]</td>
+</tr>
+<tr>
+<td>single</td>
+<td>theta_cmd</td>
+<td>rad</td>
+<td>pitch command, <br />valid if mode=[3 4]</td>
+</tr>
+<tr>
+<td>single</td>
+<td>psi_rate_cmd</td>
+<td>rad/s</td>
+<td>yaw rate command, <br />valid if mode=[1 2 3 4]</td>
+</tr>
+<tr>
+<td>single</td>
+<td>u_cmd</td>
+<td>m/s</td>
+<td>velocity x command in control frame, <br />valid if mode=[1 2]</td>
+</tr>
+<tr>
+<td>single</td>
+<td>v_cmd_B</td>
+<td>m/s</td>
+<td>velocity y command in control frame, <br />valid if mode=[1 2]</td>
+</tr>
+<tr>
+<td>single</td>
+<td>w_cmd_B</td>
+<td>m/s</td>
+<td>velocity z command in control frame, <br />valid if mode=[1 2 3]</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>throttle_cmd</td>
+<td>[1000 2000]</td>
+<td>base throttle command, <br />valid if mode=[4 5]</td>
+</tr>
+<tr>
+<td>uint16[16]</td>
+<td>actuator_cmd</td>
+<td>[1000 2000]</td>
+<td>actuator command, <br />valid if state=[0 1]</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>state</td>
+<td>-</td>
+<td>Vehicle State:<br />0: Disarm<br />1: Standby<br />2: Arm</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>mode</td>
+<td>-</td>
+<td>Control Mode:<br>0: Unknown Mode <br>1: Mission Mode<br>2: Position Mode<br>3: Altitude Hold Mode<br>4: Manual Mode<br>5: Acro Mode</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>reset</td>
+<td>-</td>
+<td>reset the controller</td>
+</tr>
+<tr>
+<td>uint8</td>
+<td>reserved</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong><span id="Control_Out_Bus">Control_Out_Bus</span></strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Unit</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint32</td>
+<td>timestamp</td>
+<td>ms</td>
+<td>timestamp of Controller output</td>
+</tr>
+<tr>
+<td>uint16[16]</td>
+<td>actuator_cmd</td>
+<td>[1000 2000]</td>
+<td>actuator command, <br />e.g, pwm signal for motors</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../simulation/" class="btn btn-neutral float-right" title="仿真">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../mbd/" class="btn btn-neutral" title="基于模型设计"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/FirmamentPilot/doc_src/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../mbd/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../simulation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
