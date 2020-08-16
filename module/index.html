@@ -465,7 +465,7 @@ CALIB
 <h2 id="log">Log日志模块</h2>
 <p>日志功能对于MBD的开发模式而言十分重要。因为MBD一个非常重要的仿真手段时开环仿真 (Open Loop Simulation)，其高度依赖于日志记录的模型输入/输出数据，从而得到和在硬件上运行完全一致的仿真数据。开环仿真要求记录的日志数据需要同时兼顾高吞吐量，低延时和高实时性的要求。</p>
 <p>FMS日志模块提供了两种类型的日志, <strong>BLog</strong> (Binary Log) 和<strong>ULog</strong> (Micro Log) , 分别提供<strong>二进制日志</strong>数据记录和<strong>文字日志</strong>数据记录的功能。</p>
-<h3 id="blog">BLog日志</h3>
+<h3 id="blog"><span id="BLog">BLog日志</span></h3>
 <p>首先有必要了解一下BLog记录日志的结构。BLog记录的日志以<strong>Bus</strong> (类似Simulink中Bus的概念)为单位，其中每个Bus又包含一个或者多个<strong>Element</strong>(类似Simulink中Element的概念)。所以BLog日志文件可以直接解析为Simulink可以使用的Bus数据，供模型进行仿真。下面同样举例说明BLog日志的用法。</p>
 <h4 id="_12">添加日志数据</h4>
 <p>这里以<code>IMU</code>日志数据为例, 演示如何添加新的日志数据.</p>
