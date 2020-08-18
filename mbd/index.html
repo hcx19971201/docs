@@ -87,8 +87,6 @@
         
             <li><a class="toctree-l3" href="#_9">代码部署</a></li>
         
-            <li><a class="toctree-l3" href="#_10">添加新的模型</a></li>
-        
         </ul>
     
 
@@ -102,7 +100,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../simulation/">仿真</a>
+    <a class="" href="../custom_model/">设计新模型</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -188,19 +186,19 @@
 <p><img alt="model" src="../img/model.png" /></p>
 <p>它包括我们前面所述的四大算法模块（Plant, INS, FMS, Controller），由于包含了被控对象模型，从而构成了一个闭环控制系统。MIL 可以很好地验证跟被控对象无关的功能（如逻辑功能），而与被控对象相关功能的仿真精度，则取决于被控对象模型建立的精度。通过科学的建模手段对被控对象进行建模，可以得到和真实世界行为十分接近的仿真数据。</p>
 <p><strong>遵循以下步骤进行 MIL 仿真</strong>：</p>
-<ol>
+<ul>
 <li>执行 <code>$FMT_Model/script/system_init.m</code> 脚本，对 FMT Model 进行初始化。</li>
 <li>打开模型 <code>$FMT_Model/model/Simulation/MIL_SIM.slx</code>。</li>
-<li>选择 *Pilot Input (遥控信号) 信号的输入方式（Joystick Input 或者 Mavlink）。</li>
+<li>选择 <em>Pilot Input</em> (遥控信号) 信号的输入方式（Joystick Input 或者 Mavlink）。</li>
 <li>点击 <code>Run</code> 运行模型。</li>
-</ol>
+</ul>
 <p>目前支持的遥控信号输入方式为通过游戏手柄接入和或者 <em>Mavlink</em>包的方式。若选择手柄的方式，则在运行模型前，请先将手柄通过 USB 插入电脑 ( Matlab支持大部分的游戏手柄，具体请参考 <code>Joystick Input</code> 模块的使用 )。如需使用 Mavlink 的方式，则需将飞控的<code>FMT_OUTPUT_PILOT_CMD</code> 宏开关打开，重新编译FMU固件并进行下载，然后将飞控通过 USB 连接到电脑上。在 <code>Pilot Input/Mavlink</code> 模块中选择飞控对应的串口。</p>
-<p>MIL 执行完后，可以查看模型的内部和输出仿真数据。查看数据的方式有很多，这里仅介绍最常用的一种，即 <code>Simulation Data Inspector</code> 。</p>
-<ul>
+<p>MIL 执行完后，可以查看模型的内部和输出仿真数据。查看数据的方式有很多，这里仅介绍最常用的一种，<code>Simulation Data Inspector</code> 。</p>
+<ol>
 <li>首先需要打开需要记录信号的 Logging 功能。具体方式为单击要记录的信号线，这时候会出现三个蓝色的小圆点，将鼠标移动到小圆点上，会出现 <code>Enable Data Logging</code> 的选项。选择，这时候信号线旁边将出现一个小的信号标志，表示这条信号将被记录下来。</li>
 <li>第二步运行 MIL 模型。</li>
 <li>模型运行结束后，打开 Simulation Data Inspector (也可在 MIL 运行的过程中观察)，打开后的界面如下。左边列出了所有已经记录的信号（名称跟所记录信号线的名称相同）。选中要查看信号，在右边进行显示。关于更多的操作方法，请参考 Matlab 官方文档。</li>
-</ul>
+</ol>
 <p><img alt="model" src="../img/sdi.png" /></p>
 <h3 id="_6">硬件在环仿真</h3>
 <p>硬件在环仿真是将算法部署到真实的硬件设备上，从而测试算法在真实硬件上的行为。跟 MIL 仿真相比较， HIL 是更接近于算法在真实世界中表现的一种仿真方式。它不光可以用来测试算法模块，也可以测试嵌入式软件平台的功能。</p>
@@ -211,54 +209,53 @@
 </ol>
 <h4 id="sih">SIH 仿真</h4>
 <p><strong>遵循以下步骤进行 SIH 仿真</strong>：</p>
-<ol>
+<ul>
 <li>确保待仿真模型已经有合入飞控系统（包括 Plant 被控对象模型），打开 <code>FMT_USING_SIH</code> 的宏开关，重新编译 FMU 固件并下载。</li>
-<li>启动飞控，将在控制台看到如下输出。</li>
-</ol>
-<pre><code>[1686] I/Status: SIH Simulation
+<li>启动飞控，将在控制台看到如下输出：</li>
+</ul>
+<pre><code>    [1686] I/Status: SIH Simulation
 </code></pre>
 
-<ol>
+<ul>
 <li>连接地面站并进行飞行测试。</li>
-</ol>
+</ul>
 <p>SIH 虽然是一种更廉价，更实时的硬件在环仿真模式，但是它也有它的一些缺点。比如要模拟多机仿真，由于飞控硬件平台算力有限，很难或者无法同时运行多个对象模型。另外，SIH 这种方式也很难模拟视觉相关功能以及跟仿真世界中的其它的物体的碰撞等物理行为。所以，如果要对比较复杂的场景进行仿真，还是建议使用标准的 HIL 仿真模式。</p>
 <h4 id="hil">HIL 仿真</h4>
 <p>TBA</p>
 <h3 id="_7">开环仿真</h3>
 <p>开环仿真是 MBD 开发模式的一个“杀手锏”功能，它为算法模型的调试与优化提供了一种非常高效的途径。</p>
-<p>大部分客机，军机上都配有黑匣子，用来记录飞行数据。当发生空难时，整个事故过程中的飞行参数就能从黑匣子中找到，人们便可知道飞机失事的原因。Firmament 也提供了类似黑匣子的功能，即 <a href="#BLog">BLog</a> 日志模块，可以实时记录需要的任何数据。通过记录少量的模型输入数据，将生成的 blog 日志文件导入开环仿真模型，即可完全重现当时的飞行场景。 Firmament 的开环仿真模型结构如下图：</p>
+<p>大部分客机，军机上都配有黑匣子，用来记录飞行数据。当发生空难时，整个事故过程中的飞行参数就能从黑匣子中找到，人们便可知道飞机失事的原因。Firmament 也提供了类似黑匣子的功能，即 BLog 日志模块，可以实时记录需要的任何数据。通过记录少量的模型输入数据，将生成的 blog 日志文件导入开环仿真模型，即可完全重现当时的飞行场景。 Firmament 的开环仿真模型结构如下图：</p>
 <p><img alt="model" src="../img/openloop_sim.png" /></p>
 <p>Firmament 平台目前可以做到开环仿真的结果跟实际的结果<strong>100%拟合</strong>，这得益于 Firmament 飞控系统的高效和硬实时特性。如下图所示为导航的输出，红色为开环仿真的结果 (500Hz)，蓝色为硬件上导航实际输出的结果 (100Hz频率记录)。可以看到两者完全拟合（图中不拟合的部分是由于记录实际模型输出的频率低于实际模型的运行频率）。</p>
 <p><img alt="model" src="../img/OL_result.png" /></p>
 <p><strong>遵循以下步骤进行开环仿真</strong>：</p>
-<ol>
+<ul>
 <li>将 <code>BLOG_MODE</code> 参数设置为<code>2</code>或者<code>3</code>，从开机记录 blog。由于算法模型是从开机开始运行，如果不从开机就开始记录数据的话，模型的部分初始数据将会丢失，导致开环仿真的结果跟实际模型输出有差异。</li>
 <li>重启飞控，在控制台将看到如下输出，表示已经开启 blog 日志记录。这里提示了当前日志的存储路径和文件名 <code>/log/session_6/blog1.bin</code>。</li>
-</ol>
-<pre><code>[1662] I/BLog: start logging:/log/session_6/blog1.bin
+</ul>
+<pre><code>    [1662] I/BLog: start logging:/log/session_6/blog1.bin
 </code></pre>
 
-<ol>
+<ul>
 <li>进行实际飞机或者仿真飞行。</li>
 <li>飞行完成后，停止 blog 记录。如果 <code>BLOG_MODE=2</code>，则会在系统 <code>Disarm</code> 的时候自动停止 blog 的记录，如果 <code>BLOG_MODE=3</code>，则需要在控制台输入 <code>blog stop</code> 指令来停止日志记录。日志停止后，将看到如下输出。这里除了显示当前记录的日志路径和文件名外，还会显示各个<code>Bus</code> 数据的记录个数 (record) 和丢包个数 (lost)。 BLog 日志模块在保证实时性的同时，还保证了高吞吐量。所以通常情况下不会出现丢包的情况。如果出现了丢包的情况，可能是由于 SD 卡本身的性能问题 （如 SD 卡存在单次写入延时过高的情况），可以尝试更换 SD 卡或者扩大 BLog 日志缓存空间的方式解决。</li>
-</ol>
-<pre><code>[32118] I/BLog: stop logging:/log/session_6/blog1.bin
-[32118] I/BLog: &quot;IMU&quot;                id:1   record:15185    lost:0
-[32118] I/BLog: &quot;MAG&quot;                id:2   record:3038     lost:0
-[32118] I/BLog: &quot;Barometer&quot;          id:3   record:3038     lost:0
-[32118] I/BLog: &quot;GPS_uBlox&quot;          id:4   record:304      lost:0
-[32118] I/BLog: &quot;Pilot_Cmd&quot;          id:5   record:1        lost:0
-[32118] I/BLog: &quot;INS_Out&quot;            id:6   record:304      lost:0
-[32118] I/BLog: &quot;FMS_Out&quot;            id:7   record:293      lost:0
-[32119] I/BLog: &quot;Control_Out&quot;        id:8   record:304      lost:0
-[32119] I/BLog: &quot;Plant_States&quot;       id:9   record:304      lost:0
-
+</ul>
+<pre><code class="shell">    [32118] I/BLog: stop logging:/log/session_6/blog1.bin
+    [32118] I/BLog: &quot;IMU&quot;                id:1   record:15185    lost:0
+    [32118] I/BLog: &quot;MAG&quot;                id:2   record:3038     lost:0
+    [32118] I/BLog: &quot;Barometer&quot;          id:3   record:3038     lost:0
+    [32118] I/BLog: &quot;GPS_uBlox&quot;          id:4   record:304      lost:0
+    [32118] I/BLog: &quot;Pilot_Cmd&quot;          id:5   record:1        lost:0
+    [32118] I/BLog: &quot;INS_Out&quot;            id:6   record:304      lost:0
+    [32118] I/BLog: &quot;FMS_Out&quot;            id:7   record:293      lost:0
+    [32119] I/BLog: &quot;Control_Out&quot;        id:8   record:304      lost:0
+    [32119] I/BLog: &quot;Plant_States&quot;       id:9   record:304      lost:0
 </code></pre>
 
-<ol>
+<ul>
 <li>导出 blog 日志。 Firmament 支持 <code>Mavlink Ftp</code> 功能，可以通过 QGC 地面站的 <code>Widgets-&gt; Onboard Files</code> 功能下载日志文件。当然也可以通过 SD 读卡器来获取日志文件。</li>
 <li>解析日志数据。使用 <code>$FMT_Model/utils/log_parser/run_logparse.m</code> 脚本来解析 blog 日志文件。解析完成后，会在日志所在目录生成 Bus 数据文件，如下图所示。其中 <code>LogHeader.mat</code> 为日志头数据，里面包含了日志的信息，如版本号，日志文本信息，系统参数等。其它的<code>.mat</code>文件则为日志记录的 Bus 数据。</li>
-</ol>
+</ul>
 <p><img alt="model" src="../img/blog_file.png" /></p>
 <ol>
 <li>
@@ -269,8 +266,21 @@
 </li>
 </ol>
 <h2 id="_8">代码生成</h2>
+<p>通过 Embedded Coder 可以将 Simulink 模型编译生成 C/C++ 代码。FMT Model 里的的 INS，FMS，Control 和 Plant 模型已经配置好。双击进入要编译的模型，然后点击 <code>Build Model</code> 按钮生成 C 代码。</p>
+<p>比如进入 Controller 模型，点击 Build Model 按钮后，将出现如下窗口。其中 <strong>Location of Generated Source Code</strong> 即为生成代码的路径。
+<img alt="model" src="../img/code_gen.png" /></p>
 <h2 id="_9">代码部署</h2>
-<h2 id="_10">添加新的模型</h2>
+<p>要将模型生成的代码部署到 Firmament 飞控上非常简单，只需要把生成的文件复制到对应模型的位置。</p>
+<p>这里还是以 Controller为例。假设 Controller 模型生成的代码路径为 <code>$model_codegen/</code>。将该路径下的 <code>*.c,*.h</code> 文件复制到 <code>$FMT_Firmament/fmt_fmu/src/module/Controller</code> 下即完成代码部署。</p>
+<p>其它模型的部署方式相同，具体部署路径如下：</p>
+<ul>
+<li>INS: <code>$FMT_Firmament/fmt_fmu/src/module/INS</code> </li>
+<li>FMS: <code>$FMT_Firmament/fmt_fmu/src/module/FMS</code> </li>
+<li>Plant: <code>$FMT_Firmament/fmt_fmu/src/module/Plant</code> </li>
+</ul>
+<blockquote>
+<p>注意：如果生成的模型不符合 FMI 的模型接口标准，则在代码部署完成后，还需要修改 <code>&lt;model_name&gt;_model.c</code> 对应模型的输入/输出代码。具体方式为修改模型输入/输出的 uMCN Topic 以匹配新的模型接口。</p>
+</blockquote>
               
             </div>
           </div>
