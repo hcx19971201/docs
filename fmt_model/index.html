@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>设计新模型 - Firmament Autopilot</title>
+  <title>FMT模型 - Firmament Autopilot</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u8bbe\u8ba1\u65b0\u6a21\u578b";
-    var mkdocs_page_input_path = "custom_model.md";
+    var mkdocs_page_name = "FMT\u6a21\u578b";
+    var mkdocs_page_input_path = "fmt_model.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -58,9 +58,21 @@
     <a class="" href="../fmt_firmware/">FMT固件</a>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="../fmt_model/">FMT模型</a>
+    <a class="current" href="./">FMT模型</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#fmt">FMT模型</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">模型库</a></li>
+        
+        </ul>
+    
+
+    </ul>
 	    </li>
           
             <li class="toctree-l1">
@@ -88,15 +100,9 @@
     <a class="" href="../interface/">模型接口定义</a>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="./">设计新模型</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#_1">设计新模型</a></li>
-    
-
-    </ul>
+    <a class="" href="../custom_model/">设计新模型</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -126,10 +132,10 @@
     
       
     
-    <li>设计新模型</li>
+    <li>FMT模型</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/FirmamentPilot/doc_src/edit/master/docs/custom_model.md"
+        <a href="https://github.com/FirmamentPilot/doc_src/edit/master/docs/fmt_model.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -139,7 +145,11 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">设计新模型</h1>
+                <h1 id="fmt">FMT模型</h1>
+<p>FMT Model 包含 Simulink 编写的算法模块，主要包含导航系统（INS），飞行管理系统（FMS） ，控制系统（Controller） 和 被控对象模型（Plant）四大算法模型。每个模型都可以生成嵌入式或者桌面 C/C++ 代码，然后可以无缝部署到 FMT Firmware 中，从而构成完成的自驾仪系统。</p>
+<p>FMT Model 还提供了完整的仿真模型，如模型在环仿真（Model-in-the-loop, MIL），软件在环仿真（Software-in-the-loop, SIL），硬件在环仿真（Hardware-in-the-loop, HIL）和开环仿真（Open-loop Simulation）。</p>
+<h2 id="_1">模型库</h2>
+<p>TBA</p>
               
             </div>
           </div>
@@ -147,10 +157,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../contribute/" class="btn btn-neutral float-right" title="贡献">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../getting_started/" class="btn btn-neutral float-right" title="快速上手">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../interface/" class="btn btn-neutral" title="模型接口定义"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../fmt_firmware/" class="btn btn-neutral" title="FMT固件"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -178,10 +188,10 @@
           <a href="https://github.com/FirmamentPilot/doc_src/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../interface/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../fmt_firmware/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../contribute/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../getting_started/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
